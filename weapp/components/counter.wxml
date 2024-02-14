@@ -1,0 +1,9 @@
+
+<view class="counter {{style}}">
+  <button size="mini" data-wpy-evt="12-0" bind:tap="__dispatcher">  +  </button>
+  <button size="mini" data-wpy-evt="12-1" bind:tap="__dispatcher">  -  </button>
+  <button size="mini" data-wpy-evt="12-2" bind:tap="__dispatcher">  INCREMENT  </button>
+  <button size="mini" data-wpy-evt="12-3" bind:tap="__dispatcher">  DECREMENT  </button>
+  <button size="mini" data-wpy-evt="12-4" bind:tap="__dispatcher">  ASYNC INCREMENT  </button>
+  <label class="count"> {{counter}} </label>
+</view>
