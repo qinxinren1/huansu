@@ -2,7 +2,7 @@
   <view>
     <van-row class="row-display">
     <van-col offset="1" span="18">
-    <van-button icon="/icons/loupe.png" size="large" round color='#7232dd' plain>搜索</van-button> 
+    <van-button bind:click="onClickSearch" icon="/icons/loupe.png" size="large" round color='#7232dd' plain>搜索</van-button> 
     </van-col>
     <van-col offset="1" span="3">
     <van-button icon="/icons/filter.png" round size="large" color='#7232dd' plain></van-button>

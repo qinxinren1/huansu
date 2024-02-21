@@ -21,7 +21,18 @@ Page({
       },
     });
   },
-
+  onClickSearch() {
+    wx.navigateTo({
+      url: '/pages/search/search',
+      success: () => {},
+      error: () => {
+        wx.showToast({
+          icon: 'none',
+          title: '打开搜索失败',
+        });
+      },
+    });
+  },
   onClickCart() {
     wx.navigateTo({
       url: '/pages/cart/index',
