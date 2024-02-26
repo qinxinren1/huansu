@@ -1,0 +1,46 @@
+<view>
+  <view>
+    <van-image
+      height="280"
+      width="100%"
+      src="{{ goods.thumb }}"
+    />
+  </view>
+  <van-cell-group border="{{ false }}">
+    <van-cell
+      custom-class="goods-message"
+      title="{{ goods.title }}"
+      label="{{ goods.location}}"
+    />
+    <van-cell custom-class="guests">
+      <van-col span="18">{{ goods.guests }}</van-col>
+    </van-cell>
+  </van-cell-group>
+  <van-cell class="van-multi-ellipsis--l2" title = "Details" label = "Hi, I'm xxx. This is the house from xxx, which locates in Madrid, Spain. This house has 1 bedroom and can accomendate 2 people. There's 1 private bathroom in the room. Wish you can find a joyful staying here. :)">
+  </van-cell>
+  <van-cell-group custom-class="goods-cell-group">
+    <van-cell value="Check the time" icon="shop-o" is-link bind:click="sorry">
+      <view slot="title">
+        <span class="van-cell-text">Time Avaliable</span>
+      </view>
+    </van-cell>
+    <van-cell title="Owner information" icon="location-o" is-link bind:click="sorry" />
+  </van-cell-group>
+
+  <van-goods-action>
+    <van-goods-action-icon
+      icon="chat-o"
+      text="我的"
+      bind:click="onClickUser"
+    />
+    <van-goods-action-icon
+      icon="cart-o"
+      text="Wishes"
+      bind:click="onClickCart"
+    />
+    <van-goods-action-button
+      text="Contect"
+      bind:click="onClickButton"
+    />
+</van-goods-action>
+</view>

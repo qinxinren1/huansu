@@ -59,6 +59,18 @@ Page({
       },
     });
   },
+  onClickHouse(){
+    wx.navigateTo({
+      url: '/pages/details/details',
+      success: () => {},
+      error: () => {
+        wx.showToast({
+          icon: 'none',
+          title: '打开个人中心失败',
+        });
+      },
+    })
+  },
 
   onClickButton() {
     wx.showToast({
