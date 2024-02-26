@@ -1,15 +1,17 @@
 Page({
   data: {
     goods: {
-      title: '美国伽力果（约680g/3个）',
+      title: 'House ID',
+      location: 'Tiny home in Madrid, Spain',
+      guests: '2 guests | 1 bedroom | 1 bath',
+      onwer: 'WX: 123456',
       price: 2680,
       formatPrice: '',
       express: '免运费',
       remain: 19,
       thumb:
-        'https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg',
+        'https://img.yzcdn.cn/vant/cat.jpeg',
     },
-    list:new Array(10).fill("https://img.yzcdn.cn/vant/cat.jpeg")
   },
   onLoad() {
     const { goods } = this.data;
@@ -21,18 +23,7 @@ Page({
       },
     });
   },
-  onClickSearch() {
-    wx.navigateTo({
-      url: '/pages/search/search',
-      success: () => {},
-      error: () => {
-        wx.showToast({
-          icon: 'none',
-          title: '打开搜索失败',
-        });
-      },
-    });
-  },
+
   onClickCart() {
     wx.navigateTo({
       url: '/pages/cart/index',
@@ -48,7 +39,7 @@ Page({
 
   onClickUser() {
     wx.navigateTo({
-      url: '/pages/user/index',
+      url: '/pages/home/home',
       success: () => {},
       error: () => {
         wx.showToast({
@@ -57,18 +48,6 @@ Page({
         });
       },
     });
-  },
-  onClickHouse(){
-    wx.navigateTo({
-      url: '/pages/details/details',
-      success: () => {},
-      error: () => {
-        wx.showToast({
-          icon: 'none',
-          title: '打开个人中心失败',
-        });
-      },
-    })
   },
 
   onClickButton() {
