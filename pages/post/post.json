@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "EuroStay-欧洲留子自己的airbnb",
-  "usingComponents": {
+   "usingComponents": {
     "date":"../../components/date/index",
     "van-image": "@vant/weapp/image/index",
     "van-tag":"@vant/weapp/tag/index",
@@ -16,6 +16,8 @@
     "van-tabbar-item": "@vant/weapp/tabbar-item/index",
     "van-icon": "@vant/weapp/icon/index",
     "van-field": "@vant/weapp/field/index",
-    "van-divider": "@vant/weapp/divider/index"
+    "van-divider": "@vant/weapp/divider/index",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index"
   }
 }
