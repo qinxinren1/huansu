@@ -1,48 +1,69 @@
+//inputVal: 地点，city
+//date: 入住日期
+//number: 入住人数
 Page({
   data: {
     date: '',
+    inputVal: '',
     start_time: '',
     end_time: '',
     number: '',
     listShowed: false,
     dateShowed: false,
-    goods: {
-      title: '美国伽力果（约680g/3个）',
-      price: 2680,
-      formatPrice: '',
-      express: '免运费',
-      remain: 19,
-      thumb:
-        'https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg',
-    },
     list: [
-      "伦敦",
-      "巴塞罗那",
-      "阿姆斯特丹"
     ],
   },
   onLoad() {
-    const { goods } = this.data;
-    const formatPrice = `¥${(goods.price / 100).toFixed(2)}`;
     this.setData({
-      goods: {
-        ...goods,
-        formatPrice,
-      },
+      inputVal: '',
     });
   },
   inputTyping:function(e) {
+    // var that = this;
+    // if (e.detail.value=="") {
+    //   return;
+    // }
+    // // listShowed=true;
+    // console.log(e)
+    // that.setData({
+    //   inputVal: e.detail,
+    //   listShowed: true
+    // });
+    // console.log(this.data.inputVal);
+
+    // new
     var that = this;
     if (e.detail.value=="") {
       return;
     }
-    // listShowed=true;
-    console.log(e)
+    const db = wx.cloud.database()
+    db.collection('test').field({
+      name:true,
+    }).where({
+      name: db.RegExp({
+        regexp: '.*' + e.detail + '.*',
+        options: 'i',
+      })
+    })
+    .get({
+      success: function(res) {
+        console.log(res.data);
+        console.log(res.data[0]['name']);
+        var names = []
+        for (var i = 0; i < res.data.length; i ++) {
+          names.push(res.data[i].name)
+        };
+        that.setData({
+          list: names
+        })
+
+        console.log(list)
+      }
+    })
     that.setData({
       inputVal: e.detail,
       listShowed: true
     });
-    console.log(this.data.inputVal);
   },
   toConfirm:function(e) {
     var that = this;
@@ -63,20 +84,42 @@ Page({
       end,
       start
     } = event.detail;
+    console.log(event.detail)
+    var start_month, end_month;
+    if (start.month < 10) {
+      start_month = '0' + start.month;
+    }
+    else {
+      start_month = start_month.month;
+    }
+    if (end.month < 10) {
+      end_month = '0' + end.month;
+    }
+    else {
+      end_month = end.month;
+    }
     this.setData({
       dateShowed: false,
-      start_time: start.year + "-" + start.month + "-" + start.date,
-      end_time: end.year + "-" + end.month + "-" + end.date,
-      date: start.year + "-" + start.month + "-" + start.date + " to " + end.year + "-" + end.month + "-" + end.date
+      start_time: start.year + "-" + start_month + "-" + start.date,
+      end_time: end.year + "-" + end_month + "-" + end.date,
+      date: start.year + "-" + start_month + "-" + start.date + " to " + end.year + "-" + end_month + "-" + end.date
     });
   },
   onClickList: function(e) {
     console.log("click")
     console.log(e.detail)
     console.log(e)
+    this.setData({  
+      inputVal: e._relatedInfo.anchorTargetText,
+      listShowed: false
+    });
+
   },
   onNumberChange: function(e) {
     console.log(e.detail);
+    this.setData({  
+      number: e.detail,
+    });
   },
   onClickCart() {
     wx.navigateTo({
@@ -103,7 +146,15 @@ Page({
       },
     });
   },
-
+  onClickSearch() {
+    wx.setStorageSync('location', this.data.inputVal);
+    wx.setStorageSync('number', this.data.number);
+    wx.setStorageSync('startDate', this.data.start_time);
+    wx.setStorageSync('endDate', this.data.end_time);
+    wx.navigateTo({
+      url: '/pages/home/home'
+    });
+  },
   onClickButton() {
     wx.showToast({
       title: '暂无后续逻辑~',

@@ -28,21 +28,21 @@
   
     <scroll-view scroll-y="true" class="list" scroll-y="{{true}}">
         <!-- <view class="item" wx:for="{{list}}">第{{index+1}}个{{item}} </view> -->
-        <view wx:for="{{list}}">
+        <view wx:for="{{searchRes}}">
         <van-image
           width="390"
           height="280"
           fit="widthFix"
           lazy-load
-          src="{{item}}"
+          src="{{item.picPath}}"
           bind:touchstart="onClickHouse"
         />
         <van-cell-group inset>
         <van-row>
         <van-col span="12">
-          <van-cell title="Location" label="Madrid, Spain" border="{{ false }}" /></van-col>
+          <van-cell title="{{item.location}}" label="{{item.location}}" border="{{ false }}" /></van-col>
         <van-col span="12">
-          <van-cell title="Time Avaliable" label="Feb, March" border="{{ false }}" /></van-col>
+          <van-cell title="{{item.start_date}} to {{item.end_date}}" label="Feb, March" border="{{ false }}" /></van-col>
         </van-row>
 </van-cell-group>
 

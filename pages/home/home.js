@@ -1,26 +1,39 @@
 Page({
   data: {
     active: 0,
-    goods: {
-      title: '美国伽力果（约680g/3个）',
-      price: 2680,
-      formatPrice: '',
-      express: '免运费',
-      remain: 19,
-      thumb:
-        'https://img.yzcdn.cn/public_files/2017/10/24/e5a5a02309a41f9f5def56684808d9ae.jpeg',
-    },
+    searchRes: {},
     list:new Array(10).fill("https://img.yzcdn.cn/vant/cat.jpeg")
   },
   onLoad() {
-    const { goods } = this.data;
-    const formatPrice = `¥${(goods.price / 100).toFixed(2)}`;
+    var that = this;
+    const location = wx.getStorageSync('location');
+    const number = wx.getStorageSync('number');
+    const startDate = wx.getStorageSync('startDate');
+    const endDate = wx.getStorageSync('endDate');
+    console.log(location, number, startDate, endDate)
+    console.log(number)
     this.setData({
-      goods: {
-        ...goods,
-        formatPrice,
-      },
+      active: 0,
     });
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('HouseInfo').where({
+      location: db.RegExp({
+        regexp: '^.*' + location + '.*',
+      }),
+      capacity: _.gte(1),
+      start_date: _.lte(startDate),
+      // end_date: _.gte(endDate),
+    })
+    .get({
+      success: function(res) {
+        console.log(res);
+        that.setData({
+          searchRes: res.data
+        })
+        console.log(that.data.searchRes)
+      }
+    })
   },
   onClickSearch() {
     wx.navigateTo({
@@ -30,18 +43,6 @@ Page({
         wx.showToast({
           icon: 'none',
           title: '打开搜索失败',
-        });
-      },
-    });
-  },
-  onClickCart() {
-    wx.navigateTo({
-      url: '/pages/cart/index',
-      success: () => {},
-      error: () => {
-        wx.showToast({
-          icon: 'none',
-          title: '打开购物车失败',
         });
       },
     });
