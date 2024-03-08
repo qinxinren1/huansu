@@ -23,7 +23,7 @@ Page({
       }),
       capacity: _.gte(1),
       start_date: _.lte(startDate),
-      // end_date: _.gte(endDate),
+      end_date: _.gte(endDate),
     })
     .get({
       success: function(res) {

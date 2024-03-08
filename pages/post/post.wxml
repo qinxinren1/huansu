@@ -60,10 +60,11 @@
     bind:focus="typeDisplay"
   >
    </van-field> -->
-<van-dropdown-menu>
-  <van-dropdown-item  value="{{type}}" options="{{ types }}" />
-</van-dropdown-menu>
 
+<van-dropdown-menu>
+  <van-dropdown-item  value="{{type}}" options="{{ types }}" bind:change="onChangeType"/>
+  <van-dropdown-item  value="{{genderVal}}" options="{{ genders }}" />
+</van-dropdown-menu>
 <!-- description -->
 <van-field
     value="{{ description }}"
@@ -77,15 +78,13 @@
   />
   <van-field
     value="{{ imageURL }}"
-    placeholder="图片选择"
+    placeholder="房间图片"
     border="{{ false }}"
     input-class="searchitem"
     focus="{{inputShowed}}" 
     input-align="center"
-    bind:change="imageChoose"
-    bind:click-input="imageChoose"
-    bind:focus="imageChoose"
-  />
+  ><van-button icon='star-o' slot="button" bind:click="imageChoose">上传</van-button></van-field>
+
 <van-field
     value="{{ contact }}"
     placeholder="Contact:微信或小红书"

@@ -4,6 +4,7 @@
 Page({
   data: {
     date: '',
+    active: 0,
     inputVal: '',
     start_time: '',
     end_time: '',
@@ -48,7 +49,7 @@ Page({
     .get({
       success: function(res) {
         console.log(res.data);
-        console.log(res.data[0]['name']);
+        // console.log(res.data[0]['name']);
         var names = []
         for (var i = 0; i < res.data.length; i ++) {
           names.push(res.data[i].name)
@@ -197,7 +198,10 @@ Page({
       },
     });
   },
-
+  onChange(event) {
+    // event.detail 的值为当前选中项的索引
+    this.setData({ active: event.detail });
+  },
   sorry() {
     wx.showToast({
       title: '暂无后续逻辑~',
