@@ -38,29 +38,56 @@ Page({
       return;
     }
     const db = wx.cloud.database()
-    db.collection('test').field({
-      name:true,
-    }).where({
-      name: db.RegExp({
-        regexp: '.*' + e.detail + '.*',
-        options: 'i',
+    const $ = db.command.aggregate
+    db.collection('HouseInfo').aggregate()
+      .match({       
+        location: db.RegExp({
+          regexp: '.*' + e.detail + '.*',
+          options: 'i',
+        })      
       })
-    })
-    .get({
-      success: function(res) {
-        console.log(res.data);
-        // console.log(res.data[0]['name']);
-        var names = []
-        for (var i = 0; i < res.data.length; i ++) {
-          names.push(res.data[i].name)
-        };
-        that.setData({
-          list: names
-        })
+      .project({    
+        location:true,
+      })
+      .group({
+        _id: null,
+        cityList: $.addToSet('$location')
+      }).end()
+      .then(res => {
+        if (res.list.length != 0) {
+          that.setData({
+            list: res.list[0].cityList,
+          })
+        }
+        else {
+          that.setData({
+            list: [],
+          })
+        }
+      })
+    // db.collection('HouseInfo').field({
+    //   location:true,
+    // }).where({
+    //   location: db.RegExp({
+    //     regexp: '.*' + e.detail + '.*',
+    //     options: 'i',
+    //   })
+    // })
+    // .get({
+    //   success: function(res) {
+    //     console.log(res.data);
+    //     // console.log(res.data[0]['name']);
+    //     var names = []
+    //     for (var i = 0; i < res.data.length; i ++) {
+    //       names.push(res.data[i].location)
+    //     };
+    //     that.setData({
+    //       list: names
+    //     })
 
-        console.log(list)
-      }
-    })
+    //     console.log(list)
+    //   }
+    // })
     that.setData({
       inputVal: e.detail,
       listShowed: true
@@ -87,11 +114,12 @@ Page({
     } = event.detail;
     console.log(event.detail)
     var start_month, end_month;
+    var start_date, end_date;
     if (start.month < 10) {
       start_month = '0' + start.month;
     }
     else {
-      start_month = start_month.month;
+      start_month = start.month;
     }
     if (end.month < 10) {
       end_month = '0' + end.month;
@@ -99,11 +127,23 @@ Page({
     else {
       end_month = end.month;
     }
+    if (start.date < 10) {
+      start_date = '0' + start.date;
+    }
+    else {
+      start_date = start.date;
+    }
+    if (end.date < 10) {
+      end_date = '0' + end.date;
+    }
+    else {
+      end_date = end.date;
+    }
     this.setData({
       dateShowed: false,
-      start_time: start.year + "-" + start_month + "-" + start.date,
-      end_time: end.year + "-" + end_month + "-" + end.date,
-      date: start.year + "-" + start_month + "-" + start.date + " to " + end.year + "-" + end_month + "-" + end.date
+      start_time: start.year + "-" + start_month + "-" + start_date,
+      end_time: end.year + "-" + end_month + "-" + end_date,
+      date: start.year + "-" + start_month + "-" + start_date + " to " + end.year + "-" + end_month + "-" + end_date
     });
   },
   onClickList: function(e) {
@@ -148,6 +188,7 @@ Page({
     });
   },
   onClickSearch() {
+    // console.log("search")
     wx.setStorageSync('location', this.data.inputVal);
     wx.setStorageSync('number', this.data.number);
     wx.setStorageSync('startDate', this.data.start_time);

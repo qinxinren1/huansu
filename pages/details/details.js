@@ -1,5 +1,7 @@
 Page({
   data: {
+    detailInfo: {},
+    active: 0,
     goods: {
       title: 'House ID',
       location: 'Tiny home in Madrid, Spain',
@@ -14,14 +16,24 @@ Page({
     },
   },
   onLoad() {
-    const { goods } = this.data;
-    const formatPrice = `¥${(goods.price / 100).toFixed(2)}`;
     this.setData({
-      goods: {
-        ...goods,
-        formatPrice,
-      },
-    });
+      active: 0
+    })
+    var that  = this;
+    var detailId = wx.getStorageSync('DetailId');
+    const db = wx.cloud.database()
+    const _ = db.command
+    db.collection('HouseInfo').where({
+      _id: detailId
+    })
+    .get({
+      success: function(res) {
+        console.log(res);
+        that.setData({
+          detailInfo: res.data[0]
+        })
+      }
+    })
   },
 
   onClickCart() {

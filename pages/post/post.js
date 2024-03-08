@@ -71,11 +71,37 @@ Page({
       end,
       start
     } = event.detail;
+    var start_month, end_month;
+    var start_date, end_date;
+    if (start.month < 10) {
+      start_month = '0' + start.month;
+    }
+    else {
+      start_month = start_month.month;
+    }
+    if (end.month < 10) {
+      end_month = '0' + end.month;
+    }
+    else {
+      end_month = end.month;
+    }
+    if (start.date < 10) {
+      start_date = '0' + start.date;
+    }
+    else {
+      start_date = start.date;
+    }
+    if (end.date < 10) {
+      end_date = '0' + end.date;
+    }
+    else {
+      end_date = end.date;
+    }
     this.setData({
       dateShowed: false,
-      start_time: start.year + "-" + start.month + "-" + start.date,
-      end_time: end.year + "-" + end.month + "-" + end.date,
-      date: start.year + "-" + start.month + "-" + start.date + " to " + end.year + "-" + end.month + "-" + end.date
+      start_time: start.year + "-" + start_month + "-" + start_date,
+      end_time: end.year + "-" + end_month + "-" + end_date,
+      date: start.year + "-" + start_month + "-" + start_date + " to " + end.year + "-" + end_month + "-" + end_date
     });
   },
   onChangeType:function(e) {
@@ -143,9 +169,10 @@ Page({
     var that = this;
     const db = wx.cloud.database()
     const _ = db.command
+    console.log(that.data.number)
     db.collection('HouseInfo').add({
       data: {
-        capacity: that.data.number,
+        capacity: Number(that.data.number),
         description: that.data.description,
         end_date: that.data.end_time,
         gender: that.data.gender,
@@ -154,17 +181,37 @@ Page({
         rules: that.data.description,
         start_date: that.data.start_time,
         tags: "",
-        type: that.data.typeStr
+        type: that.data.typeStr,
+        contact: that.data.contact,
       }
     })
     .then(res => {
       console.log(res)
     }).catch(err => {
       console.error(err)
-    })
+    });
+    console.log("here")
+    wx.navigateTo({
+      url: '/pages/home/home',
+    });
   },
   onNumberChange: function(e) {
-    console.log(e.detail);
+    // console.log(e.detail);
+    this.setData({
+      number: e.detail,
+    })
+  },
+  onDesChange: function(e) {
+    // console.log(e.detail);
+    this.setData({
+      description: e.detail,
+    })
+  },
+  onContactChange: function(e) {
+    // console.log(e.detail);
+    this.setData({
+      contact: e.detail,
+    })
   },
   onGoHome() {
     wx.navigateTo({

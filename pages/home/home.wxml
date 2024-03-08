@@ -26,16 +26,15 @@
   </van-row>
   </view>
   
-    <scroll-view scroll-y="true" class="list" scroll-y="{{true}}">
+    <scroll-view scroll-y="true" class="list" scroll-y="{{true}}" >
         <!-- <view class="item" wx:for="{{list}}">第{{index+1}}个{{item}} </view> -->
-        <view wx:for="{{searchRes}}">
+        <view wx:for="{{searchRes}}" wx:for-index="bindex" data-bindex='{{bindex}}' bindtap="onClickHouse">
         <van-image
           width="390"
           height="280"
           fit="widthFix"
           lazy-load
           src="{{item.picPath}}"
-          bind:touchstart="onClickHouse"
         />
         <van-cell-group inset>
         <van-row>

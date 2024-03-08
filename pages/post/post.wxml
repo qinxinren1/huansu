@@ -73,6 +73,7 @@
     type="textarea"
     autosize
     input-class="searchitemdes"
+    bind:change="onDesChange"
     focus="{{inputShowed}}" 
     input-align="center"
   />
@@ -92,6 +93,7 @@
     input-class="searchitem"
     focus="{{inputShowed}}" 
     input-align="center"
+    bind:change="onContactChange"
   />
 <!-- <van-calendar
   show="{{ false }}"
@@ -113,7 +115,7 @@
   </van-cell-group>   
   <van-row class="row-display">
   <van-col offset="1" span="21">
-    <van-button bind:click="onClickSearch" icon="/icons/loupe.png" size="large" round color='#7232dd' plain>搜索</van-button> 
+    <van-button bind:click="onClickSearch" icon="/icons/loupe.png" size="large" round color='#7232dd' plain>提交</van-button> 
     </van-col>
   </van-row>
 

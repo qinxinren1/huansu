@@ -42,3 +42,8 @@
 .goods-action {
   position: relative!important;
 }
+
+.capacityInfo {
+  text-align: center;
+  align-items: center;
+}
