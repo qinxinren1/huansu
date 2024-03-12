@@ -47,3 +47,12 @@
   text-align: center;
   align-items: center;
 }
+
+.swiperHome {
+  height: 230px;
+  width: 100%;
+}
+ 
+.slide-image {
+	width: 100%;
+}

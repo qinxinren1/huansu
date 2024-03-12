@@ -12,7 +12,6 @@
     bind:confirm="toConfirm"
     input-align="center"
   />
-
   <!-- 自动补全 -->
   <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0 && listShowed==true}}">
   <view class="weui-cell__bd" wx:for="{{list}}" bindtap='onClickList' wx:key="key">

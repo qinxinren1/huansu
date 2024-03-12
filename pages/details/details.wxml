@@ -1,10 +1,18 @@
 <view>
   <view>
-    <van-image
-      height="280"
-      width="100%"
-      src="{{detailInfo.picPath}}"
-    />
+    <swiper
+      indicator-dots="true"
+      autoplay="true"
+      interval="true"
+      duration="true"
+      interval="3000"
+      class="swiperHome"> 
+      <view wx:for="{{detailInfo.images}}" wx:for-item="images">
+        <swiper-item>
+        <image class="slide-image" src="{{images}}"></image>  
+        </swiper-item> 
+      </view>
+    </swiper>
   </view>
   <van-cell-group border="{{ false }}">
     <van-cell
@@ -25,7 +33,6 @@
       </view>
     </van-cell>
     <van-cell title="Owner Contact" value="{{detailInfo.contact}}" icon="location-o"  bind:click="sorry" />
-    
   </van-cell-group>
 
   <van-goods-action>

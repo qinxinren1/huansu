@@ -16,6 +16,7 @@
     "van-tabbar-item": "@vant/weapp/tabbar-item/index",
     "van-icon": "@vant/weapp/icon/index",
     "van-field": "@vant/weapp/field/index",
-    "van-divider": "@vant/weapp/divider/index"
+    "van-divider": "@vant/weapp/divider/index",
+    "mp-dialog": "weui-miniprogram/dialog/dialog"
   }
 }

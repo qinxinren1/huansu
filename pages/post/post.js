@@ -12,6 +12,10 @@ Page({
     imageShowed: false,
     listShowed: false,
     dateShowed: false,
+    // 是否隐藏添加图片的图标
+    hideAdd: false, 
+    // 用户选择上传的图片(缩略图)
+    chooseImgs: [], 
     // uploadImgPath: '',
     userImagePath: '',
     type: 0,
@@ -31,7 +35,8 @@ Page({
       { text: '女', value: 0 },
       { text: '男', value: 1 },
       { text: '不限', value: 2 },
-    ]
+    ],
+    upload: [], // 上传的图(url)
   },
   onLoad() {
     const { goods } = this.data;
@@ -124,6 +129,7 @@ Page({
   },
   imageChoose() {
     var that = this;
+    console.log("getinImage")
     if (this.data.imageShowed== false) {
       that.setData({ imageShowed: true });
       wx.chooseImage({
@@ -133,7 +139,7 @@ Page({
         success:  (res)=> {
           // 将选择的图片上传到服务器
           that.data.imageShowed = false
-          this.uploadImage(res.tempFilePaths[0]);
+          that.uploadImage(res.tempFilePaths[0]);
         }
       });
       this.setData({ imageShowed: false});
